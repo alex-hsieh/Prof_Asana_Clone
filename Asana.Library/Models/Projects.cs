@@ -10,13 +10,12 @@ namespace Asana.Library.Models
     {
         private string? name;
         private string? description;
-        private string? startDate;
-        private string? dueDate;
+        private DateTime startDate;
         private int? status;
 
         public string? Name { get; set; }
         public string? Description { get; set; }
-        public string? StartDate { get; set; }
+        public DateTime StartDate { get; set; } = DateTime.Now; // Changed from string to DateTime
         
         public int? Status { get; set; }
 
@@ -36,7 +35,7 @@ namespace Asana.Library.Models
 
         public override string ToString()
         {
-            return $"[{Id}] Project: {Name} - Description: {Description} - Start Date: {StartDate} - Status: {CompleClassifier()}";
+            return $"[{Id}] Project: {Name} - Description: {Description} - Start Date: {StartDate:MM/dd/yyyy} - Status: {CompleClassifier()}";
         }
     }
 }

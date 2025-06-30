@@ -24,13 +24,15 @@ namespace Asana.Maui.ViewModels
 
         public ToDoDetailViewModel SelectedToDo { get; set; }
         public ProjectDetailViewModel SelectedProject { get; set; }
+        
+        
         public ObservableCollection<ToDoDetailViewModel> ToDos
         {
             get
             {
                 var toDos = _toDoSvc.ToDos
                         .Select(t => new ToDoDetailViewModel(t));
-                        
+
                 if (!IsShowCompleted)
                 {
                     toDos = toDos.Where(t => !t?.Model?.IsCompleted ?? false);
@@ -39,6 +41,7 @@ namespace Asana.Maui.ViewModels
             }
         }
 
+        //
         public ObservableCollection<ProjectDetailViewModel> Projects
         {
             get
