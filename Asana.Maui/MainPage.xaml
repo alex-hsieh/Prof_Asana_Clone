@@ -9,21 +9,27 @@
         <VerticalStackLayout
             Padding="30,0"
             Spacing="25">
+            
+            <!-- ToDos Section -->
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
-                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="8*"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <!-- Tool Bar-->
+                
+                <!-- ToDo Tool Bar-->
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
                         <ColumnDefinition/>
-                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0" Text="Show Completed Tasks:"/>
-                    <CheckBox Margin="5" Grid.Column="1" IsChecked="{Binding IsShowCompleted}"/>
+                    <Label Grid.Column="0" Text="ToDos" FontSize="18" FontAttributes="Bold"/>
+                    <Label Grid.Column="1" Text="Show Completed:"/>
+                    <CheckBox Grid.Column="2" IsChecked="{Binding IsShowCompleted}"/>
                 </Grid>
+                
                 <!-- ToDo List-->
                 <ListView
                 Grid.Row="1"
@@ -56,12 +62,65 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <!-- Button Bar -->
+                
+                <!-- ToDo Button Bar -->
                 <VerticalStackLayout Grid.Row="2">
                     <Button Text="Add New ToDo" Clicked="AddNewClicked"/>
                     <Button Text="Edit Selected ToDo" Clicked="EditClicked"/>
                     <Button Text="Delete Selected ToDo" Clicked="DeleteClicked"/>
-                    <Button Text="Add a New Project" Clicked="AddProjectClicked"/>
+                </VerticalStackLayout>
+            </Grid>
+
+            <!-- Separator -->
+            <BoxView Height="2" BackgroundColor="Gray" Margin="0,10"/>
+
+            <!-- Projects Section -->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="8*"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                
+                <!-- Project Header -->
+                <Label Grid.Row="0" Text="Projects" FontSize="18" FontAttributes="Bold"/>
+                
+                <!-- Project List -->
+                <ListView
+                Grid.Row="1"
+                ItemsSource="{Binding Projects}"
+                SelectedItem="{Binding SelectedProject}"
+                >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="10*"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid Grid.Column="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Label TextColor="Blue" Grid.Row="0" Text="{Binding Model.Name}" FontAttributes="Bold"/>
+                                        <Label Grid.Row="1" Text="{Binding Model.Description}"/>
+                                        <Label Grid.Row="2" Text="{Binding Model.StartDate, StringFormat='Started: {0:MM/dd/yyyy}'}" FontSize="12" TextColor="Gray"/>
+                                    </Grid>
+
+                                    <Button Grid.Column="1" Text="Delete" Clicked="InLineProjectDeleteClicked" Command="{Binding DeleteCommand}"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                
+                <!-- Project Button Bar -->
+                <VerticalStackLayout Grid.Row="2">
+                    <Button Text="Add New Project" Clicked="AddProjectClicked"/>
                     <Button Text="Edit Selected Project" Clicked="EditProjectClicked"/>
                     <Button Text="Delete Selected Project" Clicked="DeleteProjectClicked"/>
                 </VerticalStackLayout>
