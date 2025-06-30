@@ -9,42 +9,42 @@ namespace Asana.Library.Services
 {
     public class ProjectServiceProxy
     {
-        private List<ToDo> _toDoList;
-        public List<ToDo> ToDos { 
+        private List<Projects> _projectList;
+        public List<Projects> Projects { 
             get
             {
-                return _toDoList.Take(100).ToList();
+                return _projectList.Take(100).ToList();
             }
 
             private set {
-                if (value != _toDoList)
+                if (value != _projectList)
                 {
-                    _toDoList = value;
+                    _projectList = value;
                 }
             }
         }
 
         private ProjectServiceProxy()
         {
-            ToDos = new List<ToDo>
+            Projects = new List<Projects>
             {
-                new ToDo{Id = 1, Name = "Task 1", Description = "My Task 1", IsCompleted=true},
-                new ToDo{Id = 2, Name = "Task 2", Description = "My Task 2", IsCompleted=false },
-                new ToDo{Id = 3, Name = "Task 3", Description = "My Task 3", IsCompleted=true },
-                new ToDo{Id = 4, Name = "Task 4", Description = "My Task 4", IsCompleted=false },
-                new ToDo{Id = 5, Name = "Task 5", Description = "My Task 5", IsCompleted=true }
+                new Projects{Id = 1, Name = "Project 1", Description = "My Project 1", StartDate = "2023-01-01", Status = 0},
+                new Projects{Id = 2, Name = "Project 2", Description = "My Project 2", StartDate = "2023-02-01", Status = 1},
+                new Projects{Id = 3, Name = "Project 3", Description = "My Project 3", StartDate = "2023-03-01", Status = 2},
+                new Projects{Id = 4, Name = "Project 4", Description = "My Project 4", StartDate = "2023-04-01", Status = 3},
+                new Projects{Id = 5, Name = "Project 5", Description = "My Project 5", StartDate = "2023-05-01", Status = 0}
             };
         }
 
-        private static ToDoServiceProxy? instance;
+        private static ProjectServiceProxy? instance;
 
         private int nextKey
         {
             get
             {
-                if(ToDos.Any())
+                if(Projects.Any())
                 {
-                    return ToDos.Select(t => t.Id).Max() + 1;
+                    return Projects.Select(t => t.Id).Max() + 1;
                 }
                 return 1;
             }
@@ -62,43 +62,42 @@ namespace Asana.Library.Services
                 return instance;
             }
         }
-        public ToDo? AddOrUpdate(ToDo? toDo)
+        public Projects? AddOrUpdate(Projects? projects)
         {
-            if(toDo != null && toDo.Id == 0)
+            if(projects != null && projects.Id == 0)
             {
-                toDo.Id = nextKey;
-                _toDoList.Add(toDo);
+                projects.Id = nextKey;
+                _projectList.Add(projects);
             }
 
-            return toDo;
+            return projects;
         }
-
-        public void DisplayToDos(bool isShowCompleted = false)
+        
+        public void DisplayProjects(bool isShowCompleted = false)
         {
             if (isShowCompleted)
             {
-                ToDos.ForEach(Console.WriteLine);
+                Projects.ForEach(Console.WriteLine);
             }
             else
             {
-                ToDos.Where(t => (t != null) && !(t?.IsCompleted ?? false))
+                Projects.Where(t => (t != null) && !(t?.Status == 3))
                                 .ToList()
                                 .ForEach(Console.WriteLine);
             }
         }
-
-        public ToDo? GetById(int id)
+        public Projects? GetById(int id)
         {
-            return ToDos.FirstOrDefault(t => t.Id == id);
+            return Projects.FirstOrDefault(t => t.Id == id);
         }
 
-        public void DeleteToDo(ToDo? toDo)
+        public void DeleteProject(Projects? project)
         {
-            if (toDo == null)
+            if (project == null)
             {
                 return;
             }
-            _toDoList.Remove(toDo);
+            _projectList.Remove(project);
         }
 
     }

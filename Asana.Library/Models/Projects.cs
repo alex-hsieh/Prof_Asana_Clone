@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AsanaClone.Library.Models___MVVM
+namespace Asana.Library.Models
 {
     public class Projects
     {
