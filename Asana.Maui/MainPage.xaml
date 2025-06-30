@@ -61,6 +61,9 @@
                     <Button Text="Add New ToDo" Clicked="AddNewClicked"/>
                     <Button Text="Edit Selected ToDo" Clicked="EditClicked"/>
                     <Button Text="Delete Selected ToDo" Clicked="DeleteClicked"/>
+                    <Button Text="Add a New Project" Clicked="AddProjectClicked"/>
+                    <Button Text="Edit Selected Project" Clicked="EditProjectClicked"/>
+                    <Button Text="Delete Selected Project" Clicked="DeleteProjectClicked"/>
                 </VerticalStackLayout>
             </Grid>
         </VerticalStackLayout>

@@ -14,19 +14,23 @@ namespace Asana.Maui.ViewModels
     public class MainPageViewModel : INotifyPropertyChanged
     {
         private ToDoServiceProxy _toDoSvc;
+        private ProjectServiceProxy _projectSvc;
 
         public MainPageViewModel()
         {
             _toDoSvc = ToDoServiceProxy.Current;
+            _projectSvc = ProjectServiceProxy.Current;
         }
 
         public ToDoDetailViewModel SelectedToDo { get; set; }
+        public ProjectDetailViewModel SelectedProject { get; set; }
         public ObservableCollection<ToDoDetailViewModel> ToDos
         {
             get
             {
                 var toDos = _toDoSvc.ToDos
                         .Select(t => new ToDoDetailViewModel(t));
+                        
                 if (!IsShowCompleted)
                 {
                     toDos = toDos.Where(t => !t?.Model?.IsCompleted ?? false);
@@ -35,10 +39,24 @@ namespace Asana.Maui.ViewModels
             }
         }
 
+        public ObservableCollection<ProjectDetailViewModel> Projects
+        {
+            get
+            {
+                return new ObservableCollection<ProjectDetailViewModel>(
+                    ProjectServiceProxy.Current.Projects
+                        .Select(p => new ProjectDetailViewModel(p)));
+            }
+        }
+
         public int SelectedToDoId => SelectedToDo?.Model?.Id ?? 0;
+        public int SelectedProjectId => SelectedProject?.Model?.Id ?? 0;
 
         private bool isShowCompleted;
-        public bool IsShowCompleted { 
+        
+        // need to check if isShowCompleted will also be needed for Projects
+        public bool IsShowCompleted
+        {
             get
             {
                 return isShowCompleted;
@@ -65,9 +83,21 @@ namespace Asana.Maui.ViewModels
             NotifyPropertyChanged(nameof(ToDos));
         }
 
+        public void DeleteProject()
+        {
+            if (SelectedProject == null)
+            {
+                return;
+            }
+
+            ProjectServiceProxy.Current.DeleteProject(SelectedProject.Model);
+            NotifyPropertyChanged(nameof(Projects));
+        }
+
         public void RefreshPage()
         {
             NotifyPropertyChanged(nameof(ToDos));
+            NotifyPropertyChanged(nameof(Projects));
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
