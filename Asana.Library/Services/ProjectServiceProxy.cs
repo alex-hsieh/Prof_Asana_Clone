@@ -13,13 +13,13 @@ namespace Asana.Library.Services
         public List<Projects> Projects { 
             get
             {
-                return _projectList.Take(100).ToList();
+                return _projectList?.Take(100).ToList() ?? new List<Projects>();
             }
 
             private set {
                 if (value != _projectList)
                 {
-                    _projectList = value;
+                    _projectList = value ?? new List<Projects>();
                 }
             }
         }

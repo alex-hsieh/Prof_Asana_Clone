@@ -8,17 +8,17 @@ namespace Asana.Library.Models
 {
     public class Projects
     {
-        private string? name;
-        private string? description;
-        private DateTime startDate;
-        private int? status;
+        public Projects()
+        {
+            Id = 0;
+            Status = 0;
+            StartDate = DateTime.Now;
+        }
 
         public string? Name { get; set; }
         public string? Description { get; set; }
-        public DateTime StartDate { get; set; } = DateTime.Now; // Changed from string to DateTime
-        
+        public DateTime? StartDate { get; set; }
         public int? Status { get; set; }
-
         public int Id { get; set; }
 
         public string CompleClassifier()
@@ -26,7 +26,7 @@ namespace Asana.Library.Models
             return Status switch
             {
                 0 => "Not Started",
-                1 => "In Progress",
+                1 => "In Progress", 
                 2 => "On Hold",
                 3 => "Completed",
                 _ => "Unknown"

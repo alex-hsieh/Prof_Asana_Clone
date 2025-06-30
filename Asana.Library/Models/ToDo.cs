@@ -17,8 +17,8 @@ namespace Asana.Library.Models
         public string? Description { get; set; }
         public int? Priority { get; set; }
         public bool? IsCompleted { get; set; }
-        public string? DueDate { get; set; }
-        
+        public DateTime? DueDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
         public int Id { get; set; }
 

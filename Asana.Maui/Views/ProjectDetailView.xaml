@@ -6,10 +6,7 @@
              NavigatedFrom="ContentPage_NavigatedFrom"
              NavigatedTo="ContentPage_NavigatedTo">
     
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Delete" Command="{Binding DeleteCommand}"/>
-        <ToolbarItem Text="Cancel" Command="{Binding CancelCommand}"/>
-    </ContentPage.ToolbarItems>
+    
     
     <VerticalStackLayout>
         <Grid>
