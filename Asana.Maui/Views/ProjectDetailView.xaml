@@ -4,7 +4,13 @@
              x:Class="Asana.Maui.Views.ProjectDetailView"
              Title="ProjectDetailView"
              NavigatedFrom="ContentPage_NavigatedFrom"
-            NavigatedTo="ContentPage_NavigatedTo">
+             NavigatedTo="ContentPage_NavigatedTo">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Delete" Command="{Binding DeleteCommand}"/>
+        <ToolbarItem Text="Cancel" Command="{Binding CancelCommand}"/>
+    </ContentPage.ToolbarItems>
+    
     <VerticalStackLayout>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -19,15 +25,36 @@
             <Label Text="Name: " Grid.Column="2"/>
             <Entry Text="{Binding Model.Name}" Grid.Column="3"/>
         </Grid>
-        <Button Text="Save" Command="{Binding SaveCommand}"/>
+        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Label Text="Description: " Grid.Column="0"/>
+            <Entry Text="{Binding Model.Description}" Grid.Column="1"/>
+        </Grid>
+        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Label Text="Start Date: " Grid.Column="0"/>
+            <DatePicker Date="{Binding Model.StartDate}" Grid.Column="1"/>
+        </Grid>
+        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Label Text="Status:" Grid.Column="0"/>
+            <Picker ItemsSource="{Binding Statuses}"
+                    SelectedItem="{Binding SelectedStatus}" Grid.Column="1"/>
+        </Grid>
+        
+        <Button Text="Save" Clicked="OkClicked"/>
+        <Button Text="Cancel" Clicked="CancelClicked"/>
     </VerticalStackLayout>
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Delete" Command="{Binding DeleteCommand}"/>
-        <ToolbarItem Text="Cancel" Command="{Binding CancelCommand}"/>
-    </ContentPage.ToolbarItems>
-    <ContentPage.Content>
-        <Label Text="{Binding Model.Description}" />
-        <Label Text="{Binding Model.StartDate}" />
-        <Label Text="{Binding Model.Status}" />
-
-</ContentPage.Content>
+</ContentPage>
