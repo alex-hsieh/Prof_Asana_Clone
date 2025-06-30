@@ -12,10 +12,12 @@ namespace Asana.Maui
             BindingContext = new MainPageViewModel();
         }
 
+        // ToDo Events
         private void AddNewClicked(object sender, EventArgs e)
         {
             Shell.Current.GoToAsync("//ToDoDetails");
         }
+        
         private void EditClicked(object sender, EventArgs e)
         {
             var selectedId = (BindingContext as MainPageViewModel)?.SelectedToDoId ?? 0;
@@ -27,6 +29,12 @@ namespace Asana.Maui
             (BindingContext as MainPageViewModel)?.DeleteToDo();
         }
 
+        private void InLineDeleteClicked(object sender, EventArgs e)
+        {
+            (BindingContext as MainPageViewModel)?.RefreshPage();
+        }
+
+        // Project Events
         private void AddProjectClicked(object sender, EventArgs e)
         {
             Shell.Current.GoToAsync("//ProjectDetailView");
@@ -43,6 +51,12 @@ namespace Asana.Maui
             (BindingContext as MainPageViewModel)?.DeleteProject();
         }
 
+        private void InLineProjectDeleteClicked(object sender, EventArgs e)
+        {
+            (BindingContext as MainPageViewModel)?.RefreshPage();
+        }
+
+        // Navigation Events
         private void ContentPage_NavigatedTo(object sender, NavigatedToEventArgs e)
         {
             (BindingContext as MainPageViewModel)?.RefreshPage();
@@ -52,11 +66,5 @@ namespace Asana.Maui
         {
 
         }
-
-        private void InLineDeleteClicked(object sender, EventArgs e)
-        {
-            (BindingContext as MainPageViewModel)?.RefreshPage();
-        }
     }
-
 }
